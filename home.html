@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .container {
+      padding: 16px;
+      background-color: white;
+    }
+
+    input[type=text],
+    select {
+      width: 100%;
+      padding: 15px;
+      margin: 5px 0 22px 0;
+      display: inline-block;
+      border: none;
+      background: #f1f1f1;
+    }
+
+    /* Apply focus style when input or select is focused */
+    input[type=text]:focus,
+    select:focus {
+      background-color: #ddd;
+      outline: none;
+    }
+
+    hr {
+      border: 1px solid #f1f1f1;
+      margin-bottom: 25px;
+    }
+
+    .registerbtn {
+      background-color: #f26522;
+      color: white;
+      padding: 16px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      opacity: 0.9;
+    }
+
+    .registerbtn:hover {
+      opacity: 1;
+    }
+
+    a {
+      color: dodgerblue;
+    }
+
+    .signin {
+      background-color: #f1f1f1;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Register</h1>
+    <hr>
+
+    <label for="ward"><b>ADD SURVEY TYPE</b></label>
+    <select id="ward" required>
+      <option value="">Select Survey</option>
+    </select>
+
+    <label for="district"><b>ADD CONSTITUENCY</b></label>
+    <select id="district" required>
+      <option value="">Select Constituency</option>
+    </select>
+
+    <label for="constituency"><b>ADD Assembly</b></label>
+    <select id="constituency" required>
+      <option value="">Select Assembly</option>
+    </select>
+
+    <label for="campaign"><b>ADD Campaign</b></label>
+    <input type="text" placeholder="Enter Campaign" name="campaign" id="campaign" required>
+
+    <label for="url"><b>ADD THE URL</b></label>
+    <input type="text" placeholder="Paste the url" name="url" id="url" required>
+
+    <label for="fileName"><b>FILE NAME</b></label>
+    <input type="text" placeholder="Enter the File Path" name="fileName" id="fileName" required>
+
+
+    <hr>
+
+    <button type="button" class="registerbtn" onclick="register()">Register</button>
+  </div>
+
+  <script>
+
+    function fetchData(url, callback) {
+      fetch(url)
+        .then(response => response.json())
+        .then(data => callback(data))
+        .catch(error => console.error('Error fetching data:', error));
+    }
+
+    // Function to populate dropdown
+    function populateDropdown(elementId, data) {
+      const dropdown = document.getElementById(elementId);
+      dropdown.innerHTML = ""; // Clear existing options
+
+      // Filter out the unwanted option "Choose Survey Type"
+      const options = data.filter(item => item !== 0);
+
+      options.forEach(item => {
+        const option = document.createElement("option");
+        option.value = item;
+        option.text = item;
+        dropdown.appendChild(option);
+      });
+    }
+
+    // Construct API URL for district dropdown
+    function constructDistrictApiUrl(wardValue) {
+      return `https://chatbotreport.mannit.co/mannit/redcombo?domain=political&subdomain=party&collname=${wardValue}`;
+    }
+
+    // Construct API URL for assembly dropdown
+    function constructAssemblyApiUrl(wardValue) {
+      return `https://chatbotreport.mannit.co/mannit/redcombo?domain=political&subdomain=party&collname=${wardValue}`;
+    }
+
+    // Populate "ADD SURVEY TYPE" dropdown
+    fetchData('https://chatbotreport.mannit.co/mannit/redcombo?domain=political&subdomain=party&collname=survey', function (data) {
+      populateDropdown('ward', data.source.values.dis);
+    });
+
+    // Function to populate "ADD CONSTITUENCY" dropdown based on "ADD SURVEY TYPE" selection
+    function populateDistrict() {
+      const wardValue = document.getElementById('ward').value;
+      const url = constructDistrictApiUrl(wardValue);
+      fetchData(url, function (data) {
+        populateDropdown('district', data.source.values.dis);
+      });
+    }
+
+    // Function to populate "ADD Assembly" dropdown based on "ADD CONSTITUENCY" selection
+    function populateAssembly() {
+      const districtValue = document.getElementById('district').value;
+      const url = constructAssemblyApiUrl(districtValue);
+      fetchData(url, function (data) {
+        populateDropdown('constituency', data.source.values.dis);
+      });
+    }
+
+    // Function to populate "ADD Zone" dropdown based on "ADD Assembly" selection
+    function populateZone() {
+      const assemblyValue = document.getElementById('constituency').value;
+      const url = constructZoneApiUrl(assemblyValue);
+      fetchData(url, function (data) {
+        populateDropdown('zone', data.source.values.dis);
+      });
+    }
+
+    // Event listeners to populate dropdowns dynamically based on selection
+    document.getElementById('ward').addEventListener('change', populateDistrict);
+    document.getElementById('district').addEventListener('change', populateAssembly);
+    document.getElementById('constituency').addEventListener('change', populateZone);
+
+    function register() {
+      var ward = document.getElementById("ward").value;
+      var district = document.getElementById("district").value;
+      var constituency = document.getElementById("constituency").value;
+      var campaign = document.getElementById("campaign").value;
+      var url = document.getElementById("url").value;
+      var fileName = document.getElementById("fileName").value;
+
+      // var fullPath = "D://movies//" + fileName + ".pdf";
+
+      var data = {
+        ward: ward,
+        district: district,
+        constituency: constituency,
+        campaign: campaign,
+        url: url,
+        fileName: fileName,
+        domain: "WARD",
+        subdomain: "WARD"
+      };
+
+      fetch('http://localhost:8080/mannit/eCreate?domain=WARD&subdomain=WARD&userId=65f81f20d2c2c30387f03f48', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          // Clear input fields after successful submission
+          document.getElementById("ward").value = "";
+          document.getElementById("district").value = "";
+          document.getElementById("constituency").value = "";
+          document.getElementById("campaign").value = "";
+          document.getElementById("url").value = "";
+          document.getElementById("fileName").value = "";
+          return response.json();
+        })
+        .then(data => {
+          console.log('Data successfully stored:', data);
+        })
+        .catch(error => {
+          console.error('There was a problem with the request:', error);
+        });
+    }
+  </script>
+
+</body>
+
+</html>

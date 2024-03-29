@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- no cache -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0"  />
+<!-- ------------------------- -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>BJP Dashboard Page</title>
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-hexashop.css">
+    <link rel="stylesheet" href="assets/css/owl-carousel.css">
+    <link rel="stylesheet" href="assets/css/lightbox.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+
+</head>
+
+<body onload="onloadPage();">
+
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <!-- ***** Preloader End ***** -->
+
+
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav d-flex justify-content-between align-items-center">
+                        <a href="index.html">
+                            <div class="logo">
+                                <img src="assets/images/logo.png" alt="">
+                                <h4 style="color:#f26522">Winning Elections</h4>
+                            </div>
+                        </a>
+
+                        <div class="table-responsive" style="margin-top: 5px; margin-right: 20px;">
+                            <table class="table table-bordered">
+                                <tr style="border: #ec0fbc;">
+                                    <th class="admk-img" style="background-color:#0fc7ec; text-align: right;">ADMK</th>
+                                    <th class="bjp-img" style="background-color:#fabb0c; text-align: right;">BJP</th>
+                                    <th class="dmk-img" style="background-color:#ed989b; text-align: right;">DMK</th>
+                                    <th class="ntk-img" style="background-color:#05bc51; text-align: right;">NTK</th>
+                                    <th class="pondi-img" style="background-color:#f5f906; text-align: center;">TN + PONDI</th>
+                                </tr>
+
+                                <tr>
+                                    <td style="text-align: center; font-weight: bold; font-size: x-large;"></td>
+                                    <td style="text-align: center; font-weight: bold; font-size: x-large;">1</td>
+                                    <td style="text-align: center; font-weight: bold; font-size: x-large;">5</td>
+                                    <td style="text-align: center; font-weight: bold; font-size: x-large;"></td>
+                                    <td style="text-align: center; font-weight: bold; font-size: x-large;">40</td>
+                                </tr>
+
+                                
+                               
+                            </table>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+
+
+    <!-- ***** Main Banner Area Start ***** -->
+    <div class="main-banner" id="top">
+        <div class="container-fluid">
+            <div class="row" style="margin-top: -60px;">
+                <div class="col-md-12" style="text-align: center;">
+
+
+                    <!-- Dropdown Container -->
+                    <div class="dropdown-container">
+                        <!-- <div class="compare">hi</div> -->
+                        <select class="dropdown" id="wardDropdown">
+                            <option value="" disabled selected>Choose Survey Type</option>
+                        </select>
+                        <select class="dropdown" id="districtDropdown">
+                            <option value="" disabled selected>Choose Constituency</option>
+                        </select>
+                        <select class="dropdown" id="assemblyDropdown">
+                            <option value="" disabled selected>Choose Assembly</option>
+                        </select>
+
+                        <select class="dropdown" id="zoneDropdown">
+                            <option value="" disabled selected>Choose Campaign</option>
+                        </select>
+
+                        <!-- VIEW BUTTON -->
+                        <div>
+                            <button class="button" onclick="triggerApiCall()">View <i class="fa fa-eye"></i></button>
+                        </div>
+                        <!-- COMPARE BUTTON -->
+                        <div>
+                            <button class="compare-button" id="compareButton"
+                                onclick="triggerApiCallCompare()">Compare <img src="assets/images/compare.png" style="width: 25px; height: 25px; color: rgb(255, 255, 255);"  /></button>
+                        </div>
+                        <!-- <div><button class="download" ><i class="fa fa-download"> </i>
+                        </button>
+                        </div> -->
+
+                    </div>
+
+                </div>
+                <div class="col-md-6 ">
+                    <div class="right" style="border: 3px solid #f26522; border-radius: 10px; 
+                        overflow:hidden; height: 800px; 
+                        background-image: url('assets/images/tamilnadu-1.png'); 
+                        /* background-image: url('assets/images/loading-1.gif'); */
+                        background-repeat:no-repeat;
+                        background-size: cover; background-size: contain; background-position: center;  ">
+                         <div class="loading-container" id="loadingContainer" style="display: none; justify-content: center; position: absolute; top: 50%; right:100px; transform: translate(50%, 50%);">
+                            <img src="assets/images/loading-2.gif" alt="Loading..." />
+                        </div>
+                        <div id="iframeContainer"></div>
+                        <div id="imageContainer"></div>
+                        <!-- WATERMARK -->
+                        <div class="watermark">MANNIT-INNOVATIONS</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; Mannit-Innovations Pvt ltd -2024 Webpage with Charts</p>
+    </footer>
+
+
+    <!-- jQuery and other scripts -->
+    <!-- Ensure to include the necessary scripts -->
+    <script src="assets/js/jquery-2.1.0.min.js"></script>
+    <script src="assets/js/popper.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/owl-carousel.js"></script>
+    <script src="assets/js/accordions.js"></script>
+    <script src="assets/js/datepicker.js"></script>
+    <script src="assets/js/scrollreveal.min.js"></script>
+    <script src="assets/js/waypoints.min.js"></script>
+    <script src="assets/js/jquery.counterup.min.js"></script>
+    <script src="assets/js/imgfix.min.js"></script>
+    <script src="assets/js/slick.js"></script>
+    <script src="assets/js/lightbox.js"></script>
+    <script src="assets/js/isotope.js"></script>
+    <script src="assets/data/zone.js"></script>
+    <script src="assets/data/ward.js"></script>
+    <script src="assets/data/district.js"></script>
+    <script src="assets/js/custom.js"></script>
+    <script>
+
+        function onloadPage() {
+
+            const button = document.getElementById("compareButton");
+            button.setAttribute("disabled", "");
+            button.style.background = "#5755FE"
+            Dbutton.style.border = "#5755FE"
+        }
+
+
+        function triggerApiCall() {
+            document.getElementById('imageContainer').innerHTML = '';
+            document.getElementById('iframeContainer').innerHTML = '';
+            document.getElementById('loadingContainer').style.display = 'block';
+
+            var selectedWard = document.getElementById('wardDropdown').value;
+            var selectedDistrict = document.getElementById('districtDropdown').value;
+            var selectedAssembly = document.getElementById('assemblyDropdown').value;
+            var selectedCampaign = document.getElementById('zoneDropdown').value;
+            var apiUrl;
+            // if (compareButton) {
+            //      //  alert("test");
+            //         // Enable multiple selections in zoneDropdown
+            //     }
+
+            if (selectedWard === "IVRS") {
+                apiUrl = `https://chatbotreport.mannit.co/mannit/eSearch?&domain=WARD&subdomain=WARD&filtercount=4&f1_field=ward_S&f1_op=eq&f1_value=${selectedWard}&f2_field=district_S&f2_op=eq&f2_value=${selectedDistrict}&f3_field=constituency_S&f3_op=eq&f3_value=${selectedAssembly}&f4_field=campaign_S&f4_op=eq&f4_value=${selectedCampaign}`;
+            } else if (selectedWard === "Manual" && selectedAssembly === "Choose Assembly") {
+                selectedAssembly = "Consolidated";
+                assemblyDropdown.value = selectedAssembly;
+                apiUrl = `https://chatbotreport.mannit.co/mannit/eSearch?&domain=WARD&subdomain=WARD&filtercount=2&f1_field=ward_S&f1_op=eq&f1_value=${selectedWard}&f2_field=district_S&f2_op=eq&f2_value=${selectedDistrict}`;
+            } else if (selectedWard === "Manual" && selectedAssembly !== "") {
+                assemblyDropdown.value = selectedAssembly;
+                apiUrl = `https://chatbotreport.mannit.co/mannit/eSearch?&domain=WARD&subdomain=WARD&filtercount=3&f1_field=ward_S&f1_op=eq&f1_value=${selectedWard}&f2_field=district_S&f2_op=eq&f2_value=${selectedDistrict}&f3_field=constituency_S&f3_op=eq&f3_value=${selectedAssembly}`;
+            }
+
+            console.log("API URL:", apiUrl);
+            var iframeElement = document.createElement('iframe');
+            var imageElement = document.createElement('img');
+
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("API Response:", data);
+                    if (data.source && Array.isArray(data.source) && data.source.length > 0) {
+                        const sourceObject = JSON.parse(data.source[0]);
+                        const imageUrl = sourceObject.url;
+                        console.log("Image URL:", imageUrl);
+                        if (imageUrl.includes("google.com/spreadsheets")) {
+                            iframeElement = document.getElementById('iframeContainer');
+                            if (iframeElement) {
+                                iframeElement.innerHTML = `<iframe src="${imageUrl}" width="100%" height="800px" scrolling="no"></iframe>`;
+                                hideFooter();
+                            } else {
+                                console.error("Iframe container element not found");
+                            }
+                        } else {
+                            imageElement = document.getElementById('imageContainer');
+                            if (imageElement) {
+                                imageElement.innerHTML = `<img src="${imageUrl}" alt="Generated Image">`;
+                            } else {
+                                console.error("Image container element not found");
+                            }
+                        }
+                    } else {
+                        console.error("Invalid or missing 'source' data in the API response");
+                        imageElement = document.getElementById('imageContainer');
+                        if (imageElement) {
+                            imageElement.innerHTML = "<p>Coming Soon</p>";
+                        } else {
+                            console.error("Image element container not found")
+                        }
+                        document.getElementById('loadingContainer').style.display = 'none';
+                    }
+                  
+                })
+                .catch(error => {
+                    console.error("API Error:", error);
+                    imageElement = document.getElementById('imageContainer');
+                    if (imageElement) {
+                        imageElement.innerHTML = "<p>Coming Soon</p>";
+                    } else {
+                        console.error("Imageconatiner element not found");
+                    }
+                    document.getElementById('loadingContainer').style.display = 'none';
+                });
+               
+        }
+
+        function triggerApiCallCompare() {
+            console.log("Compare button clicked");
+            document.getElementById('imageContainer').innerHTML = '';
+            document.getElementById('iframeContainer').innerHTML = '';
+
+            var selectedWard = document.getElementById('wardDropdown').value;
+            var selectedDistrict = document.getElementById('districtDropdown').value;
+            var selectedAssembly = document.getElementById('assemblyDropdown').value;
+            var selectedCampaign = document.getElementById('zoneDropdown').value;
+            var apiUrl;
+
+
+
+            if (selectedWard === "IVRS" && selectedDistrict === "Coimbatore") {
+                assemblyDropdown.value = selectedAssembly;
+
+                selectedCampaigngrp = "---";
+                apiUrl = `https://chatbotreport.mannit.co/mannit/eSearch?&domain=WARD&subdomain=WARD&filtercount=4&f1_field=ward_S&f1_op=eq&f1_value=${selectedWard}&f2_field=district_S&f2_op=eq&f2_value=${selectedDistrict}&f3_field=constituency_S&f3_op=eq&f3_value=${selectedAssembly}&f4_field=campaign_S&f4_op=eq&f4_value=${selectedCampaigngrp}`;
+                //  apiUrl = `https://chatbotreport.mannit.co/mannit/eSearch?&domain=WARD&subdomain=WARD&filtercount=3&f1_field=ward_S&f1_op=eq&f1_value=${selectedWard}&f2_field=district_S&f2_op=eq&f2_value=${selectedDistrict}&f3_field=constituency_S&f3_op=eq&f3_value=${selectedAssembly}`;
+            }
+
+            console.log("API URL:", apiUrl);
+            var iframeElement = document.createElement('iframe');
+            var imageElement = document.createElement('img');
+
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("API Response:", data);
+                    if (data.source && Array.isArray(data.source) && data.source.length > 0) {
+                        const sourceObject = JSON.parse(data.source[0]);
+                        const imageUrl = sourceObject.url;
+                        console.log("Image URL:", imageUrl);
+                        if (imageUrl.includes("google.com/spreadsheets")) {
+                            iframeElement = document.getElementById('iframeContainer');
+                            if (iframeElement) {
+                                iframeElement.innerHTML = `<iframe src="${imageUrl}" width="100%" height="800px" scrolling="no"></iframe>`;
+                                // hideFooter();
+                            } else {
+                                console.error("Iframe container element not found");
+                            }
+                        } else {
+                            imageElement = document.getElementById('imageContainer');
+                            if (imageElement) {
+                                imageElement.innerHTML = `<img src="${imageUrl}" alt="Generated Image">`;
+                            } else {
+                                console.error("Image container element not found");
+                            }
+                        }
+                    } else {
+                        console.error("Invalid or missing 'source' data in the API response");
+                    }
+                })
+                .catch(error => {
+                    console.error("API Error:", error);
+                    // If there's an error fetching data, show "Coming Soon" in the image container
+                    imageElement = document.getElementById('imageContainer');
+                    if (imageElement) {
+                        imageElement.innerHTML = "<p>Coming Soon</p>";
+                    } else {
+                        console.error("Image container element not found");
+                    }
+                });
+        }
+
+
+        // function hideFooter() {
+        //     var footer = document.querySelector('footer');
+        //     if (footer) {
+        //         footer.style.display = 'none';
+        //     }
+        // }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var wardDropdown = document.getElementById('wardDropdown');
+            var districtDropdown = document.getElementById('districtDropdown');
+            var assemblyDropdown = document.getElementById('assemblyDropdown');
+            var zoneDropdown = document.getElementById('zoneDropdown');
+            var compareButton = document.getElementById('compareButton');
+
+
+            function populateDropdown(dropdown, valuesArray) {
+                dropdown.innerHTML = "";
+                valuesArray.forEach(value => {
+                    var option = document.createElement('option');
+                    option.value = value;
+                    option.text = value;
+                    dropdown.appendChild(option);
+                });
+            }
+
+            function constructDistrictApiUrl(wardValue) {
+                return `https://chatbotreport.mannit.co/mannit/redcombo?domain=political&subdomain=party&collname=${wardValue}`;
+            }
+
+            function constructAssemblyApiUrl(districtValue) {
+                return `https://chatbotreport.mannit.co/mannit/redcombo?domain=political&subdomain=party&collname=${districtValue}`;
+            }
+
+            function constructZoneApiUrl(assemblyValue) {
+                return `https://chatbotreport.mannit.co/mannit/redcombo?domain=political&subdomain=party&collname=${assemblyValue}`;
+            }
+
+            assemblyDropdown.addEventListener('change', function () {
+                var selectedAssembly = assemblyDropdown.value;
+                var zoneApiUrl = constructZoneApiUrl(selectedAssembly);
+
+                fetch(zoneApiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.statusCode === 200 && data.source && data.source.values) {
+                            populateDropdown(zoneDropdown, data.source.values.dis);
+                        } else {
+                            console.error("Invalid data format or missing values for zone dropdown:", data);
+                        }
+                    })
+                    .catch(error => console.error("Error fetching data for zone dropdown:", error));
+            });
+
+            var wardApiUrl = 'https://chatbotreport.mannit.co/mannit/redcombo?domain=political&subdomain=party&collname=survey';
+
+            fetch(wardApiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.statusCode === 200 && data.source && data.source.values) {
+                        populateDropdown(wardDropdown, data.source.values.dis);
+                    } else {
+                        console.error("Invalid data format or missing values for ward dropdown:", data);
+                    }
+                })
+                .catch(error => console.error("Error fetching data for ward dropdown:", error));
+
+            compareButton.addEventListener('click', function () {
+
+                triggerApiCallCompare();
+
+            });
+
+            wardDropdown.addEventListener('change', function () {
+                var selectedWard = wardDropdown.value;
+                var districtApiUrl = constructDistrictApiUrl(selectedWard);
+
+                fetch(districtApiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.statusCode === 200 && data.source && data.source.values) {
+                            populateDropdown(districtDropdown, data.source.values.dis);
+                        } else {
+                            console.error("Invalid data format or missing values for district dropdown:", data);
+                        }
+                    })
+                    .catch(error => console.error("Error fetching data for district dropdown:", error));
+            });
+
+            districtDropdown.addEventListener('change', function () {
+                var selectedDistrict = districtDropdown.value;
+                var assemblyApiUrl = constructAssemblyApiUrl(selectedDistrict);
+
+                fetch(assemblyApiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.statusCode === 200 && data.source && data.source.values) {
+                            populateDropdown(assemblyDropdown, data.source.values.dis);
+                        } else {
+                            console.error("Invalid data format or missing values for assembly dropdown:", data);
+                        }
+                    })
+                    .catch(error => console.error("Error fetching data for assembly dropdown:", error));
+            });
+
+            wardDropdown.addEventListener('change', function () {
+                districtDropdown.style.display = "none";
+                assemblyDropdown.style.display = "none";
+                zoneDropdown.style.display = "none";
+
+                if (wardDropdown.value === "Manual") {
+                    districtDropdown.style.display = "block";
+                    assemblyDropdown.style.display = "block";
+                } else if (wardDropdown.value === "IVRS") {
+                    districtDropdown.style.display = "block";
+                    assemblyDropdown.style.display = "block";
+                    zoneDropdown.style.display = "block";
+                }
+            });
+
+            assemblyDropdown.addEventListener('change', function () {
+                var selectedAssembly = assemblyDropdown.value;
+                console.log("Selected Assembly:", selectedAssembly); // Debugging statement
+                var assemblyDropdownVal = document.getElementById("assemblyDropdown").value;
+                const button1 = document.getElementById("compareButton");
+                //alert(assemblyDropdownVal);
+
+                if (assemblyDropdownVal === "Consolidated") {
+                    //   alert("enable");
+                    // Disable the button
+                    button1.removeAttribute("disabled");
+                    // orange color enable
+                    button1.style.background = "#F26522"
+
+
+                } else {
+                    button1.setAttribute("disabled", "");
+                    button1.style.background = "#5755FE"
+                }
+            })
+
+            zoneDropdown.addEventListener('change', function () {
+                districtDropdown.style.display = "none";
+                assemblyDropdown.style.display = "none";
+                zoneDropdown.style.display = "none";
+
+                if (zoneDropdown.value === "Manual") {
+                    wardDropdown.style.display = "block";
+                    districtDropdown.style.display = "block";
+                } else {
+                    districtDropdown.style.display = "block";
+                    assemblyDropdown.style.display = "block";
+                    zoneDropdown.style.display = "block";
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
